@@ -6,7 +6,10 @@ https://docs.google.com/spreadsheets/d/1QWBvdeLF1QWx7POHUE1tEMoxNfZOFMkhsc4lnA8N
 database query:
 
 * best-selling day by month:
+
 * top-selling product by quantity:
+select product_id, sum(sales) from stock group by product_id;
+
 * higher revenues per product:
 * how much capital is in inventory:
 * how much capital is in box:

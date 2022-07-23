@@ -37,10 +37,8 @@ CREATE TABLE IF NOT EXISTS providers (
 
 CREATE TABLE IF NOT EXISTS purchases (
     purchase_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    provider_id INT UNSIGNED NOT NULL,
     purchase_date DATE NOT NULL,
     factura VARCHAR(10) NOT NULL,
-    FOREIGN KEY (provider_id) REFERENCES providers (provider_id),
     PRIMARY KEY (purchase_id)
 ) ENGINE=INNODB;
 
@@ -48,21 +46,26 @@ CREATE TABLE IF NOT EXISTS stock (
     stock_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     purchase_id INT UNSIGNED NOT NULL,
     product_id INT UNSIGNED NOT NULL,
+    provider_id INT UNSIGNED NOT NULL,
     purchase_price INT NOT NULL,
     sales_price INT NOT NULL,
     amount INT NOT NULL,
     sales INT,
     FOREIGN KEY (product_id) REFERENCES products (product_id),
     FOREIGN KEY (purchase_id) REFERENCES purchases (purchase_id),
+    FOREIGN KEY (provider_id) REFERENCES providers (provider_id),
     PRIMARY KEY (stock_id)
 ) ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS sales (
     sale_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     sale_date DATE NOT NULL,
-    stock_ref INT UNSIGNED NOT NULL,
+    product_id INT UNSIGNED NOT NULL,
+    stock_id INT UNSIGNED NOT NULL,
     amount INT NOT NULL,
-    FOREIGN KEY (stock_ref) REFERENCES stock (stock_id),
+    sales_price INT NOT NULL,
+    FOREIGN KEY (product_id) REFERENCES products (product_id),
+    FOREIGN KEY (stock_id) REFERENCES stock (stock_id),
     PRIMARY KEY (sale_id)
 ) ENGINE=INNODB;
 
